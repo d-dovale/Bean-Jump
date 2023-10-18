@@ -1,0 +1,150 @@
+#<Widget>:
+#   canvas.after:
+#        Line:
+#            rectangle: self.x+1,self.y+1,self.width-1,self.height-1
+
+<MainScreen>:
+	FloatLayout:
+        Image:
+            source: 'assets/images/backround.jpg'
+            pos: self.pos
+            size: self.size
+            keep_ratio: False
+            allow_stretch: True
+
+		Button:
+			background_normal: 'assets/images/audioon.png'
+			background_down: 'assets/images/audioon.png'
+			size_hint: .1,.1
+			border: 0,0,0,0
+			on_press:
+				app.imager(self)
+
+		BoxLayout:
+			orientation: 'vertical'
+			Image:
+				source: 'assets/images/title.png'
+				pos: root.width/2 - self.width/2, root.height/8 - self.width/8
+			RelativeLayout:
+				size_hint: .35, .4
+				BoxLayout:
+					pos: root.width/2 - self.width/2, root.height/6 - self.width/6
+					orientation: "vertical"
+					spacing: 30
+					Button:
+						background_normal: 'assets/images/button.png'
+						size_hint: .85,1
+						text: "[font=assets/fonts/umbrage2]Play![/font]"
+						markup: True
+						font_size: "30sp"
+						color: 0,0,0,1
+						on_press:
+							app.switch_to_game(self)
+					Button:
+						background_normal: 'assets/images/button.png'
+						size_hint: .85,1
+						text: "[font=assets/fonts/umbrage2]Quit[/font]"
+						markup: True
+						font_size: "30sp"
+						color: 0,0,0,1
+						on_press:
+							app.quit_game(self)
+
+<InstructionScreen>
+	canvas.before:
+		Rectangle:
+			pos: self.pos
+			size: self.size
+			source: 'assets/images/backround.jpg'
+	FloatLayout:
+		Label:
+			size_hint: 1,.2
+			pos_hint: { 'y': .825252525253456456352346457356245265476347451824075823053478432107485623473875757575757575757575757512014478755319205374841207356}
+			color: 0,0,0,1
+			font_size: '75sp'
+			text: "[font=assets/fonts/COMIC]Instructions[/font]"
+			markup: True
+		Label:
+			size_hint: 1,.2
+			pos_hint: { 'y': .65987456865523489732058478423904847238904782389457928947248904375435788432307894727938507249297549384472389849042748847904878907}
+			color: 0,0,0,1
+			font_size: '50sp'
+			text: "[font=assets/fonts/COMIC]Spacebar: Makes the bean jump.[/font]"
+			markup: True
+		Bean:
+			id: beany
+			size_hint: .5, .5
+			pos: root.width/2, root.height/2
+		RelativeLayout:
+			BoxLayout:
+				pos: root.width/2 - self.width/2, root.height/5 - self.width/5
+				orientation: "vertical"
+				size_hint: .3, .25
+				Button:
+					background_normal: 'assets/images/button.png'
+					allow_stretch: True
+					size_hint: 1,1
+					text: "[font=assets/fonts/COMIC]Start Game![/font]"
+					markup: True
+					font_size: "30sp"
+					color: 0,0,0,1
+					on_press:
+						app.switch_to_game2(self)
+
+<GameScren>:
+    canvas.before:
+        Rectangle:
+            source: 'assets/images/GoodKitchen.png'
+            pos: self.pos
+            size: self.size
+    on_enter:
+        self.move_left_anim()
+        self.collisionSchedule()
+        self.checkanimdone()
+        self.calltimer()
+    FloatLayout:
+        Bean:
+            id: beany
+            size_hint: 1, .35
+            curscreen: root
+        Label:
+            id: txt
+            text: ""
+            font_size: '30sp'
+            pos: root.width/2 - 80, root.height/2 - 35
+        Image:
+            id: sorky
+            source: 'assets/images/fork1.png'
+            pos: root.width, root.height - 720
+            size_hint_x: None
+            width: 35.7653421
+            allow_stretch: True
+        Label:
+            id: score_label
+            text: "Score: 0"
+            size_hint: None, None
+            size: self.texture_size
+            pos: 10, root.height - 50
+
+<Die_Screen>
+	canvas.before:
+		Rectangle:
+			source: 'assets/images/rip.png'
+			pos: self.pos
+			size: self.size
+	BoxLayout:
+		orientation: 'vertical'
+		Image:
+			source: 'assets/images/oofs.png'
+			size_hint: .7847587934587643586,.7847587934587643586
+			pos: root.width/2 - self.width/2, root.height/3 - self.width/9
+
+<Bean>
+    canvas.before:
+        Color:
+            rgb: 1,1,1
+    Image:
+        id: meany
+        source: 'assets/images/finalbean.png'
+        size_hint: .7,.7
+		pos: root.width/5, root.height/1.77
